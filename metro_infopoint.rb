@@ -1,9 +1,14 @@
 require 'yaml'
 class MetroInfopoint
   def initialize(path_to_timing_file:, path_to_lines_file: )
-    @info = YAML.load_file('config/config.yml')
-    @row_data = YAML.load_file('config/timing1.yml')['timing']
-
+    if path_to_timing_file == '' || !path_to_timing_file
+        path_to_timing_file = 'config/timing1.yml'
+      end
+    if path_to_lines_file == '' || !path_to_lines_file
+        path_to_lines_file = 'config/config.yml'
+    end
+    @info = YAML.load_file(path_to_lines_file)
+    @row_data = YAML.load_file(path_to_timing_file)['timing']
     @timing_data = []
 
     @row_data.each_with_index do |item,i|
